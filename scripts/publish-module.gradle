@@ -1,0 +1,53 @@
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = project.findProperty('PUBLISH_GROUP_ID') ?: 'io.github.prostocesar'
+                artifactId = project.findProperty('PUBLISH_ARTIFACT_ID') ?: 'example'
+                version = project.findProperty('PUBLISH_VERSION') ?: '1.0.0'
+
+                pom {
+                    name = artifactId
+                    description = 'My Android library'
+                    url = 'https://github.com/prostocesar/example'
+
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'prostocesar'
+                            name = 'Your Name'
+                            email = 'your.email@example.com'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git://github.com/prostocesar/example.git'
+                        developerConnection = 'scm:git:ssh://github.com/prostocesar/example.git'
+                        url = 'https://github.com/prostocesar/example'
+                    }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                name = "CentralPortal"
+                url = uri("https://central.sonatype.com/api/v1/publisher")
+                credentials {
+                    username = findProperty("sonatypeUsername") as String
+                    password = findProperty("sonatypePassword") as String
+                }
+            }
+        }
+    }
+
+    signing {
+        sign publishing.publications.release
+    }
+}

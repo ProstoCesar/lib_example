@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.maven.publish)
+    alias(libs.plugins.signing)
 }
 
 android {
@@ -36,29 +37,15 @@ android {
     }
 }
 
+extra.set("PUBLISH_GROUP_ID", "io.github.prostocesar")
+extra.set("PUBLISH_ARTIFACT_ID", "example")
+extra.set("PUBLISH_VERSION", "1.0.0")
+
+apply(from = "${rootDir}/scripts/publish-module.gradle")
+
 dependencies {
+    implementation(libs.plugins.publish.plugin)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-            groupId = "ru.lib.example"      // ваши координаты
-            artifactId = "example"             // имя библиотеки
-            version = "1.0.0"                 // версия
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            // Локальный репозиторий
-            name = "LocalMaven"
-            url = uri("${System.getProperty("user.home")}/.m2/repository")
-        }
-    }
 }
