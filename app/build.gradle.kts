@@ -7,11 +7,7 @@ plugins {
 
 android {
     namespace = "ru.eugene.test.mainsdkactivity"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     publishing {
         singleVariant("release") {
@@ -62,6 +58,7 @@ publishing {
 }
 
 dependencies {
+    implementation(libs.example)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
