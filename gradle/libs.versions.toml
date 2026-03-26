@@ -1,10 +1,10 @@
 [versions]
-agp = "8.11.2"
+agp = "8.13.0"
 kotlin = "2.0.21"
 coreKtx = "1.18.0"
 appcompat = "1.7.1"
 material = "1.13.0"
-vanniktechVer = "0.29.0"
+vanniktechVer = "0.36.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -16,4 +16,5 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 vanniktech = { id = "com.vanniktech.maven.publish", version.ref = "vanniktechVer" }
 maven-publish = { id = "maven-publish" }
+signing = { id = "signing" }
 

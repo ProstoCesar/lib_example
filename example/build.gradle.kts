@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.maven.publish)
     alias(libs.plugins.vanniktech)
+    alias(libs.plugins.signing)
 }
 
 android {
@@ -30,41 +31,38 @@ android {
         jvmTarget = "11"
     }
 }
-
+println("Key file exists: ${file("C:/Users/Eugene/.gnupg/key.asc").exists()}")
 mavenPublishing {
+    // Указываем, что публикуем в Maven Central через центральный портал
     publishToMavenCentral()
-    signAllPublications()
 
-    coordinates(
-        "io.github.prostocesar",
-        "example",
-        "1.0.0"
-    )
+    // Если нужно подписывать артефакты (обязательно для Central)
+    signAllPublications()
+    coordinates("io.github.prostocesar", "example", "1.0.0")
 
     pom {
-        name.set("example")
-        description.set("My Android library")
-        url.set("https://github.com/prostocesar/example")
-
+        name.set("My Library")
+        description.set("A description of what my library does.")
+        inceptionYear.set("2020")
+        url.set("https://github.com/ProstoCesar/lib_example/")
         licenses {
             license {
-                name.set("Apache-2.0")
-                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                name.set("The Apache License, Version 2.0")
+                url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
             }
         }
-
         developers {
             developer {
                 id.set("prostocesar")
-                name.set("Your Name")
-                email.set("your.email@example.com")
+                name.set("Eugene Sorokin")
+                url.set("https://github.com/ProstoCesar/")
             }
         }
-
         scm {
+            url.set("https://github.com/ProstoCesar/lib_example/")
             connection.set("scm:git:git://github.com/ProstoCesar/lib_example.git")
             developerConnection.set("scm:git:ssh://github.com/ProstoCesar/lib_example.git")
-            url.set("https://github.com/ProstoCesar/lib_example")
         }
     }
 }
