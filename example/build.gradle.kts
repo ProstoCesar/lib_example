@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.maven.publish)
-    alias(libs.plugins.signing)
+    alias(libs.plugins.vanniktech)
 }
 
 android {
@@ -29,22 +29,47 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
+}
+
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+
+    coordinates(
+        "io.github.prostocesar",
+        "example",
+        "1.0.0"
+    )
+
+    pom {
+        name.set("example")
+        description.set("My Android library")
+        url.set("https://github.com/prostocesar/example")
+
+        licenses {
+            license {
+                name.set("Apache-2.0")
+                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+            }
+        }
+
+        developers {
+            developer {
+                id.set("prostocesar")
+                name.set("Your Name")
+                email.set("your.email@example.com")
+            }
+        }
+
+        scm {
+            connection.set("scm:git:git://github.com/ProstoCesar/lib_example.git")
+            developerConnection.set("scm:git:ssh://github.com/ProstoCesar/lib_example.git")
+            url.set("https://github.com/ProstoCesar/lib_example")
         }
     }
 }
 
-extra.set("PUBLISH_GROUP_ID", "io.github.prostocesar")
-extra.set("PUBLISH_ARTIFACT_ID", "example")
-extra.set("PUBLISH_VERSION", "1.0.0")
-
-apply(from = "${rootDir}/scripts/publish-module.gradle")
-
 dependencies {
-    implementation(libs.plugins.publish.plugin)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
