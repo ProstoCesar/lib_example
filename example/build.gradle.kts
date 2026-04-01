@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.maven.publish)
     alias(libs.plugins.vanniktech)
     alias(libs.plugins.signing)
 }
@@ -31,14 +30,14 @@ android {
         jvmTarget = "11"
     }
 }
-println("Key file exists: ${file("C:/Users/Eugene/.gnupg/key.asc").exists()}")
+
 mavenPublishing {
     // Указываем, что публикуем в Maven Central через центральный портал
     publishToMavenCentral()
 
     // Если нужно подписывать артефакты (обязательно для Central)
     signAllPublications()
-    coordinates("io.github.prostocesar", "example", "1.0.0")
+    coordinates("io.github.prostocesar", "example", "1.0.1")
 
     pom {
         name.set("My Library")
